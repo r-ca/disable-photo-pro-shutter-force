@@ -18,7 +18,11 @@ public class Entry implements IXposedHookLoadPackage {
             clazz = loadPackageParam.classLoader.loadClass("com.sonymobile.photopro.util.capability.PlatformCapability");
             cameraIdClazz = loadPackageParam.classLoader.loadClass("com.sonymobile.photopro.device.CameraInfo$CameraId");
         } catch (Exception e) {
-            XposedBridge.log("Failed to load class: com.sonymobile.photopro.util.capability.PlatformCapability");
+            if (e instanceof ClassNotFoundException) {
+                XposedBridge.log("Class not found: " + e.getMessage());
+            } else {
+                XposedBridge.log("Error loading classes: " + e.getMessage());
+            }
         }
 
         if (clazz != null) {
@@ -31,7 +35,7 @@ public class Entry implements IXposedHookLoadPackage {
                     }
                 });
             } catch (Exception e) {
-                XposedBridge.log("Failed to hook method: isForceSound in com.sonymobile.photopro.util.capability.PlatformCapability");
+                XposedBridge.log("Error hooking method isForceSound: " + e.getMessage());
             }
         }
     }
