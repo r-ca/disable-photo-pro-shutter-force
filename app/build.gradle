@@ -35,4 +35,7 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+
+    compileOnly files('libs/api-82.jar')
+    compileOnly files('libs/api-82-sources.jar')
 }
